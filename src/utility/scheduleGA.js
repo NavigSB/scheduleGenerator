@@ -90,8 +90,10 @@ function getBestSchedule(eventProps, populationSize, generations) {
     function nextGeneration() {
       let newPopulation = [];
       for (let i = 0; i < population.length; i++) {
-        let schedule = pickOne(population, fitness);
-        mutate(schedule);
+        let scheduleA = pickOne(population, fitness);
+        let scheduleB = pickOne(population, fitness);
+        let schedule = crossOver(scheduleA, scheduleB);
+        mutate(schedule, 0.01);
         newPopulation[i] = schedule;
       }
       population = newPopulation;
@@ -150,9 +152,24 @@ function getBestSchedule(eventProps, populationSize, generations) {
       return list[index].slice();
     }
 
+    function crossOver(scheduleA, scheduleB) {
+      let newSchedule = [];
+      for(let i = 0; i < scheduleA.length; i++) {
+        if(Math.random() < 0.5) {
+          newSchedule.push(scheduleA[i]);
+        }else{
+          newSchedule.push(scheduleB[i]);
+        }
+      }
+      return newSchedule;
+    }
+
     function mutate(schedule, mutationRate) {
-      let randI = randomInt(schedule.length - 1);
-      schedule[randI] = randomInt(dayLength - dynamicEvents[randI].length);
+      for(let i = 0; i < schedule.length; i++) {
+        if(Math.random() < mutationRate) {
+          schedule[i] = randomInt(dayLength - dynamicEvents[i].length);
+        }
+      }
     }
   });
 }

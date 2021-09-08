@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     (async () => {
       if (eventProps.startTime !== "") {
-        let bestEventProps = await getBestEventProps(eventProps, 10, 20);
+        let bestEventProps = await getBestEventProps(eventProps, 500, 1000);
         console.log(bestEventProps);
         setStaticEventProps(bestEventProps);
         setLoading(false);
