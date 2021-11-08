@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { randomColor } from "../../utility/utilityFunctions";
 
+let formCounter = 0;
+
 function EventsForm({ onSubmit }) {
   const props = {
     startTime: "9:00",
@@ -42,6 +44,25 @@ function EventsForm({ onSubmit }) {
   }, []);
 
   return <div></div>;
+
+  // return (
+  //   <div className="w-full h-0 flex justify-center">
+  //     <div className="md:w-4/5 w-full bg-gray-200">
+  //       <div className="w-full flex justify-center py-5">
+  //         <EventForm />
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
+}
+
+function EventForm() {
+  return (
+    <div>
+      <label for={"name" + formCounter}>Event Name: </label>
+      <input name={"name" + formCounter++} type="text" className="border border-black" />
+    </div>
+  );
 }
 
 function createEventsArr(props, input) {

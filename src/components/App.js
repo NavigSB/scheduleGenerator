@@ -4,7 +4,7 @@ import EventsForm from "./EventsForm/EventsForm";
 import Schedule from "./Schedule/Schedule";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [eventProps, setEventProps] = useState({
     startTime: "",
     endTime: "",
@@ -22,7 +22,6 @@ function App() {
     (async () => {
       if (eventProps.startTime !== "") {
         let bestEventProps = await getBestEventProps(eventProps, 500, 1000);
-        console.log(bestEventProps);
         setStaticEventProps(bestEventProps);
         setLoading(false);
       }
@@ -31,6 +30,7 @@ function App() {
 
   async function onSubmit(output) {
     setEventProps(output);
+    setLoading(true);
   }
 
   return (
